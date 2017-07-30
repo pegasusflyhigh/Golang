@@ -10,56 +10,54 @@ var tyresChan = make(chan int, 10)
 var chassisChan = make(chan int, 10)
 
 func tyres(ch chan int) {
-	n, i := 0, 0
-	for i < 100 {
+	 tyres :=  0
+	for tyres < 100 {
 
 		time.Sleep(1 * time.Second)
-		i = i + 4
-		if i%4 == 0 {
+		tyres = tyres + 4
+		if tyres%4 == 0 {
 			ch <- 4
 		} else {
-			ch <- i
+			ch <- tyres
 		}
 		tm.MoveCursor(5, 15)
-		tm.Println(i)
+		tm.Println(tyres)
 		tm.Flush()
-		n = n + 1
+		
 	}
 	close(ch)
 }
 
 func doors(ch chan int) {
-	j, n := 0, 0
+	doors := 0
 
-	for j < 100 {
+	for doors < 100 {
 		time.Sleep(2 * time.Second)
-		j = j + 4
-		if j%4 == 0 {
+		doors = doors + 4
+		if doors%4 == 0 {
 			ch <- 4
 		} else {
-			ch <- j
+			ch <- doors
 		}
 		tm.MoveCursor(5, 70)
-		tm.Println(j)
+		tm.Println(doors)
 		tm.Flush()
-		n = n + 1
+	
 	}
 	close(ch)
 }
 
 func chassis(ch chan int) {
 
-	k, n := 0, 0
-	for k < 100 {
+	chassis :=  0
+	for chassis < 100 {
 
 		time.Sleep(3 * time.Second)
-		k = k + 1
+		chassis = chassis + 1
 		ch <- 1
 		tm.MoveCursor(5, 125)
-		tm.Println(k)
+		tm.Println(chassis)
 		tm.Flush()
-
-		n = n + 1
 	}
 	close(ch)
 }
@@ -78,7 +76,7 @@ func main() {
 	go doors(doorsChan)
 	go chassis(chassisChan)
 
-	number := 0
+	carsNumber := 0
 
 	for y3 := range chassisChan {
 
@@ -86,9 +84,9 @@ func main() {
 		y2 := <-tyresChan
 
 		if y1 == 4 && y2 == 4 && y3 == 1 {
-			number = number + 1
+			carsNumber = carsNumber + 1
 			tm.MoveCursor(20, 50)
-			tm.Println(number, " - CAR MADE")
+			tm.Println(carsNumber, " - CAR MADE")
 			tm.Flush()
 		}
 
