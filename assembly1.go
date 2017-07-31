@@ -1,3 +1,7 @@
+#4 tyres manufactured in 1 second
+#4 doors manufactured in 2 seconds
+#1 chassis manufactured in 3 seconds
+
 package main
 
 import (
